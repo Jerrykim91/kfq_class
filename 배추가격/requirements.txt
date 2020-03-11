@@ -1,0 +1,8 @@
+flask 
+pickle
+os
+cv2
+numpy  Keras
+randrange
+matplotlib
+seaborn
