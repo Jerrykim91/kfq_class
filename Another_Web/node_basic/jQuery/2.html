@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+<div>
+    <h2>css selector 학습</h2>
+    <h2 id='m1' class='m2'>아이디</h2>
+    <h2 class='m2'>클레스</h2>
+    <span>1234</span>
+    <p>abcd</p>
+    <div>가나다라</div>
+    <div id='1992'>가나다라마바사</div>
+</div>
+<script>
+    // jQuery의 selector 문법
+    // $('css selector') => 요소를 특정, 특정 요소를 찾는 방법
+    // 1. * : 모든 요소
+    // 요소 : element =start tag + contents + end tag
+    // <h1>제목</h1>
+    // 이 문서에 존재하는 모든 요소
+    $('*').css('color','red')
+    // 2. 아이디: 문서내에 고유, #아이디값
+    // css는 가장 마지막에 적용된 스타일이 최종이다
+    $('#m1').css('color','blue')
+    // 3. class : 여러 요소에 동일 스타일 적용, .class값
+    $('.m2').css('background','yellow')
+    // 4. 요소지칭 : 태그명사용 -> 문서상에 존재하는 모든 그이름의요소
+    // -> 복수, 배열, 리스트등등 => []
+    $('h2').css('color','black')
+    // 5. 열거 : 특정하고 싶은 요소들을 ,를 구분자로 하여 나열한다
+    // span, p, div를 다 찾아서 글자색을 #5CD1E5    
+    $('span, p, div').css('color','#5CD1E5')
+    // span, p, div를 다 찾아서 글자색을 #5CD1E5 조작한다
+    // 그런데, div중 id가 1992인 요소만 포함한다
+    // 6. 조합 : 위에 나온 1~5까지를 섞어서 사용, 4+3, 4+2로 조합
+    $('span, p, div#1992').css('color','#2F9D27')
+    // 단, id는 그 자체가 고유해서 굳이 요소명을 조합하지 않는다
+    $('span, p, #1992').css('color','#2F9D27')
+</script>
+</body>
+</html>

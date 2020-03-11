@@ -1,0 +1,56 @@
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- 사이트 브랜드 -->
+    <a href="/" class="brand-link">
+        <img src="dist/img/AdminLTELogo.png" alt="Brand Logo" class="brand-image img-circle elevation-3"
+            style="opacity: .8">
+        <span class="brand-text font-weight-light">CMS</span>
+    </a>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <!-- 프사 -->
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="image">
+                <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+            </div>
+            <div class="info">
+                <a href="#" class="d-block">품질 재단(이름)</a>
+            </div>
+        </div>
+        <!-- 메뉴 리스트 -->
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">                
+                <li class="nav-item">
+                    <a href="/" class="nav-link">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            대시보드
+                            <span class="right badge badge-danger">New</span>
+                        </p>
+                    </a>
+                </li>
+                <% /* 메뉴추가->새로운페이지를 추가->진입로설정  */ %>
+                <li class="nav-item">
+                    <% /* 신규라우트(블루프린트방식 적용)  */ %>
+                    <a href="/stock" class="nav-link">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            주식 조회
+                            <span class="right badge badge-danger">Stock</span>
+                        </p>
+                    </a>
+                </li> 
+                <li class="nav-item">
+                    <% /* 신규라우트(블루프린트방식 적용)  */ %>
+                    <a href="/chat" class="nav-link">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            실시간 채팅
+                            <span class="right badge badge-danger">Chat</span>
+                        </p>
+                    </a>
+                </li>                
+            </ul>
+        </nav>
+    </div>
+    <!-- /.sidebar -->
+</aside>

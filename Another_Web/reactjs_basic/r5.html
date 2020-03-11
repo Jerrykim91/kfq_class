@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>JSX 이해</title>    
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+  </head>
+  <body> 
+    <div id='root'></div>
+    <script type='text/babel'>
+        // JSX는 화면에 보이는 html 혹은 사용자가 정의한 컴포넌트로 구성
+        // 그냥 액면으로 보면 html로 보인다
+        // 반드시 root 엘리먼트가 존재해야 한다
+        // <div>...</div>  => ok
+        // <div>...</div><div>...</div> =>  error
+        // 표현이 복잡하면 ()로 감쌀수 있다(중요)
+        // <div>...</div> or (<div>...</div>)
+        // 속성값넣기, 변수값넣기 => {값}
+        const price = 1500
+        const coffee_name = '아이스 아메리카노'
+        // jsx 구성
+        let jsx_html = (<p type={coffee_name}>1층 커피숍의 
+          {coffee_name}은 가격이 {price}입니다</p>)
+
+        // 특정 요소에 렌더링하여 화면 갱신
+        ReactDOM.render( jsx_html, document.querySelector('#root'))
+    </script>
+  </body>
+</html>

@@ -1,0 +1,19 @@
+/* 글 내용에 대한 전체 아웃라인 스타일 */
+.Post {
+    background-color: burlywood;
+    margin-top: 1rem;
+    padding: 1rem;
+}
+/* 제목 스타일 */
+.Post h2{
+    font-size: 3rem;
+}
+/* 아이디 스타일 */
+.Post span{
+    font-size: 1rem;
+    background-color: aquamarine;
+}
+/* 본문 스타일 */
+.Post p{
+    font-size: 2rem;
+}

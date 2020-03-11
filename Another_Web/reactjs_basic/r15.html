@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>사용자 정의 컴포넌트:라디오버튼(관점은체크박스로)</title>
+    <!-- html위에서 react를 학습할때 포함해야할 external js 3개 -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+  </head>
+  <body> 
+    <div id='root'></div>
+    <script type='text/babel'>    
+        // 기능은 체크박스인데 생긴것은 라디오 버튼이다 그런 컴포넌트
+        /* 이번 여름 휴가는 어디로?    
+          ○ 강원도
+          ● 거제도
+          ○ 지리산
+          ○ 백화점
+        */
+        // 화면구성 -> 이벤트 -> 이벤트 처리에 따른 화면 갱신 루틴 구현
+        class MyChoice extends React.Component
+        {
+          constructor ( props ) {
+            super(props) 
+            // state -> 화면변화에 영향을 미치는 변수들 보관
+            // state 1단게 초기화
+            this.state = {
+              on:false // false:○, true:● 를 의미한다
+            }           
+          }
+          render () {
+            // 이벤트 연결 1번
+            const onCheck = (e)=>{
+              console.log( this.props.name + ' 클릭' )
+              // state 3단계 업데이트
+              // ! => 기본값 부정 , t -> f, f -> t
+              this.setState( { on:!this.state.on } )
+            }
+            return (<div onClick={ onCheck }>   
+              {/* state 2단계 사용 */}
+              { this.state.on ? '●' : '○' } { this.props.name }           
+            </div>)
+          }
+        }
+        var html = <div>
+          이번 여름 휴가는 어디로?
+          <MyChoice name='강원도'/>
+          <MyChoice name='거제도'/>
+          <MyChoice name='지리산'/>
+          <MyChoice name='센텀'/>
+        </div>
+        ReactDOM.render( html, document.querySelector('#root'))
+    </script>
+  </body>
+</html>

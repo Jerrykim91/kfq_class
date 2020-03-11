@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head></head>
+<body>
+    <div>        
+        <fieldset>
+            <h2>Step1 게이머의 이름 입력</h2>
+            <input type='text' id='yourInput' placeholder="게이머 이름" />
+            <button onclick="onSend();">입력</button>
+            <p id='gName'></p>
+        </fieldset>
+    </div>
+    <br>    
+    <div>        
+        <fieldset>
+            <h2>Step2 게임 진행 - 숫자 맞추기(1~99)</h2>
+            <input type='number' id='myValue' placeholder="AI의 값은?" />
+            <button id='shotBtn'>Shot</button>
+        </fieldset>
+    </div>
+    <br>
+    <div>
+        <fieldset>
+            <h2>Game Log</h2>
+            <div id='log'></div>
+        </fieldset>
+    </div>
+    <script>
+        let gamerName = ''
+        let aiValue   = 0
+        let myValue   = 0
+        let tryCnt    = 0        
+        console.log("게이머의 이름을 입력하세요. 단 28자이내")
+        function onSend() {
+            let yourInput = tmp.value
+            console.log(typeof yourInput)
+            if (yourInput.length == 0) {
+                alert('정확하게 입력하세요')
+            }
+            else if (yourInput.length > 28) {
+                alert('게이머의 이름은 28자 이내입니다.')
+                tmp.value = ''
+            }
+            else {             
+                gamerName = yourInput
+                console.log(`입력하신 이름은 ${yourInput} 입니다`)                
+                document.querySelector('#gName').innerHTML = `이름:${gamerName}`                
+                tmp.value = ''                
+                gameStep2()
+            }
+        }        
+        function gameStep2() {         
+            let introStr = `======================================
+                    숫자 맞추기 게임(1~99)
+                    v 1.0.0
+                    ${gamerName}
+                    ======================================`            
+            console.log(introStr)
+        }
+        function gameAI () {
+            return parseInt( Math.random() * 99 ) + 1
+        }        
+        document.querySelector('#shotBtn').addEventListener('click', ()=>{
+            console.log('숫자 입력')
+            onShot()
+        })        
+        function onShot(){          
+            if( aiValue == 0 ){
+                aiValue = gameAI()
+                console.log( aiValue )
+            }
+            let tmp = document.querySelector('#myValue')            
+            myValue = parseInt(tmp.value)
+            console.log( typeof myValue )
+            tryCnt++
+            if ( myValue > aiValue ) { 
+                document.querySelector('#log').innerHTML = document.querySelector('#log').innerHTML + `[${myValue}]입력값이 큽니다<br>`                
+                tmp.value = ''
+            }else if ( myValue < aiValue ) {
+                document.querySelector('#log').innerHTML = document.querySelector('#log').innerHTML + `[${myValue}]입력값이 작습니다<br>`                
+                tmp.value = ''
+            }else{                 
+                let myScore = 100 - (tryCnt*10)                 
+                document.querySelector('#gName').innerHTML = `이름:${gamerName}, 점수:${myScore}`                
+                setTimeout( ()=>{                
+                    if( confirm('정답입니다, 다시 하시겠습니까?') ){                        
+                        gameInit()
+                    }else{                        
+                        alert('bye ~ bye')                        
+                        self.close()
+                    }
+                }, 1000*1 )
+            }                        
+        }        
+        function gameInit() {            
+            aiValue   = 0
+            myValue   = 0
+            tryCnt    = 0
+            document.querySelector('#myValue').value = ''            
+            document.querySelector('#log').innerHTML = ''            
+        }
+    </script>
+</body>
+</html>

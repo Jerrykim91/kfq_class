@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Virtual DOM</title>
+    <!-- html위에서 react를 학습할때 포함해야할 external js 3개 -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+  </head>
+  <body>
+    <!-- 기본적으로 DOM을 조작해서 화면을 그리거나 수정하는 부분은 
+    굉장히 느리다 생각 -가상DOM을 통해 조작하로 화면 랜더링을 하는 매커니즘 
+    화면 수정은 꼭 필요한 부분만 갱신 -->    
+    <!-- 1. 랜더링하는 대상 =>  html의 요소 -->
+    <div id='root'></div>
+    <div>hi</div>
+    <!-- 2. js코드  -->
+    <!-- <script type='text/javascript'></script> -->
+    <!-- babel:모던스크립트(ES2015~ES6~)->호환된 js로 변환 -->
+    <script type='text/babel'>
+      // 여기서 작성하는 모든 코드는 범용적인 브라우저에서 모두 지원될수있게
+      // 호환 코드로 변환된다 => 맘놓고 최신문법기준으로 코드를 잓성해라
+      // 3번째 구성요소 : 동적으로 만드는 html은 JSX라고 한다
+      let html = <div>
+        <p>리액트:본 코드의 용어는 JSX입니다.</p>
+      </div>      
+      // 4번재 구성요소 : 랜더링 대상이 될 요소를 획득 : css selector
+      let root = document.querySelector('#root')
+      // 5번째 구성요소 : 랜더링
+      // 1번인자: 랜더링으로 그릴 내용(JSX)
+      // 2번인자: 랜더링을 한 타겟(화면에 보여질 요소, 경계)      
+      ReactDOM.render( html, root )
+    </script>
+  </body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <!-- < % =  변수  % >  : 변수값을 출력 표현 -->
+    <title><%= title2 %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <div>
+      <h1>주식 검색(AJAX + jquery 사용 + json)</h1>
+      <p>
+        <% /*
+        AJAX:js기반으로 백그라운드에서 비동기 통신을 담당<br>
+        - 특징:화면이껌벅임없음,동일 도메인에서만 사용가능(동일사이트에서만가능)<br>
+        - 다루는데이터는:html,xml(1999),text,json(2007~9년대후반) 등 텍스트포멧 가능<br>
+        xml:플랫폼과언어에 독립적인 데이터포멧으로 최초로 등장한 형식<br>
+        - json등장으로 주류에서 밀려났고, 여행사,항공사,숙박 이쪽계열 아직사용<br>
+        - 환경구성등 포멧으로 사용<br>
+        - html의 엄격한 규격의 영향을 지속적으로 미치고 있다<br>
+        json:전자정부프레임웍(spring 주력)에서 주된 데이터 포멧으로 사용
+        - JavaScript Object Notation<br>
+        - xml은 데이터를 표현하는데  &lt;name&gt;품질&lt;/name&gt; <br>
+        - json은 데이터를 표현하는데 name:품질 => 데이터를 줄있수 있다<br>
+        - xml 대비 저 용량을 같은 정보를 표현하게 되어서 각광<br>
+        - 2010년 이후로는 대부분의 http기반 통신 base의 데이터 형식을
+          주로 사용<br>
+        jQuery:자바스크립트 프레임웍, js를 보다 손쉽게 개발하기위해사용<br>
+        - css selector, 이벤트 처리, 통신(ajax), DOM 조작(화면조작)
+        */ %>
+      </p>
+      <fieldset>
+        <form>
+          <input type="text" name='keyword' placeholder="주식명"/>
+          <input type='submit' value="검색"/>
+        </form>
+        <div id='results' style='margin-top: 1em;'>          
+        </div>        
+      </fieldset>
+      <script>
+        // 여기에 존재하는 이유는
+        // 바로 위에 있는 html 요소를 엑세스하겠다 의미
+        // 1. form 특정해서, 전송 이벤트를 인터셉트 해야한다 (event:submit)
+        $('form').on('submit',(evt)=>{
+          // 2. 이벤트 무효화          
+          evt.preventDefault()
+          // 3. ajax 통신
+          // https://api.jquery.com/jQuery.ajax/
+          $.ajax({
+            url:'/search',              // 통신할 주소(동일 도메인)
+            data:$('form').serialize(), // 전송할 데이터, 자동구성해줌
+            type:'get',                 // 전송 방식:메소드
+            dataType:'json',            // 응답 데이터 포멧
+            success:(data)=>{           // 성공
+              console.log('성공', typeof data)
+              // 화면 처리 => DOM 조작
+              // 결과창을 특정해서, 응답데이터중 name 컬럼을 뽑아서
+              // <div>이름</div>로 생성하여 자식으로 추가한다
+              // 배열 => 지정된 횟수를 반복 => for
+              // 기본 결과를 삭제=> 비운다
+              $('#results').empty()
+              $.each( data, ( index, item )=>{
+                // 주식명 : 삼성전자
+                let html = item.name
+                // 검색어를 좀 찐하게 <b> 처리
+                // 검색어 획득 : 삼성
+                let word = $('[name=keyword]').val()
+                // <b>삼성</b>전자
+                html = html.replace( word, `<b>${word}</b>` )
+                //$('#results').append( `<div>${html}</div>` )
+                $('#results').append( `<div id="stock${index}">${html}</div>` )
+                //console.log(  )
+                // 실습 : 20분
+                // 해당 주식이름을 클릭하면 alert('주식명') 호출
+                // 구현하시오
+                // 반복하면서 div가 추가되면 그 요소는 last로 
+                // 특정할수 있다 => 바로 이벤트 적용
+                //$('#results>div:last').on('click',()=>{
+                $(`#stock${index}`).on('click',()=>{
+                  //alert(item.name)
+                  // ~/info/종목코드
+                  // update가 1이면 수정하기화면 아니면 미리보기
+                  location.href = `/info/${item.code}?update=0`
+                })
+              } )
+            
+            },   
+            error:(err)=>{              // 실패
+              console.log('실패', err)
+            }   
+          });
+          return false
+        })
+      </script>
+    </div>
+    <div>
+      <h1>주식 리스트</h1>
+      <!-- 데이터를 리스트로 표현할대 주로 사용 -->
+      <table border='1' cellspacing='0' width='100%'>
+        <thead>
+          <!-- 컬럼 -->
+          <tr> <!-- 한줄 -->
+            <th>code</th>
+            <th>name</th>
+            <th>cur</th>
+            <th>rate</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- 데이터 -->
+          <% for( row of rows ){ %>
+            <tr> <!-- 한줄 -->
+              <td><%= row.code %></td>
+              <td><%= row.name %></td>
+              <td><%= row.cur %></td>
+              <td><%= row.rate %></td>
+            </tr>
+          <% } %>
+          
+          
+        </tbody>
+      </table>      
+    </div>
+    <script>
+      // HTML을 인터프린터(랜더링)하면 브라우저가 한줄한줄 읽어서
+      // 해석->화면처리:메모리에 html 문서가 적제된다:dom구성된다
+      // BODY 태그를 다는 지점 직전에 스크립트를 열면 이미 
+      // 메모리에 다 로드되어 있으니까 html 조작이 가능
+      $('tbody>tr:even').css('background','lightgreen')      
+    </script>    
+  </body>
+</html>

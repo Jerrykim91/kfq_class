@@ -1,0 +1,30 @@
+<div class="content-wrapper">
+    <!-- 해당 페이지 헤더 정보 (필수포함) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">실시간 채팅</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <!-- 페이지 뎁스 설명 -->
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">실시간 채팅</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+
+    <!-- 실제 내용 -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <%- include ./chat_box.ejs %>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

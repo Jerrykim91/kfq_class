@@ -1,0 +1,41 @@
+<!-- 이 문서는 html5이다 알려주는 표식-->
+<!DOCTYPE html>
+<html>
+<!-- 자바스크립트가 html 에 포함되는 케이스는 총 3가지 경우 
+ 1. external => html 바깥족에 존재한다 =>  xx.js
+ 2. internal => <script></script>
+ 3. inline   => tag안에 이벤트 쪽에 함수가 직접 호출되는 경우
+-->
+<!-- 메타 정보(문서를 설명하는 기술하는 내용) -->
+<head></head>
+<!-- 화면 담당 -->
+<body>
+    <input type='text' id='yourInput'/>
+    <button onclick="onSend();">입력</button>
+    <!-- 가장 위치하기 쉬운 곳은 body닫기 직전 -->
+    <script>
+        // 클라이언트 사이드 js의 내장함수
+        // 입력 테스트 -> 
+        function onSend () {
+            // 입력하면 호출된다
+            //console.log( '호출' )
+            // 입력값 획득->input 요소를 찾아서, 그 요소의 값을 획득한다 
+            // id를 가진 요소를 특정하는 방법 => #id값
+            let tmp = document.querySelector('#yourInput')
+            //console.log( tmp.value )
+            // 입력값은 
+            let yourInput = tmp.value
+            /*
+                1. 게임이 시작하면(웹페이지 새로고침),
+                   "게이머의 이름을 입력하세요. 단 28자이내" 문구 콘솔출력
+                - 만약, 입력을 않하고 엔터를 치면 -> alert(자율적) -> 다시 입력을 받는다
+                - 만약, 28자이상 (28<) 입력하면 => alert(자율적) -> 다시 업력을 받는다
+                - 정상적으로 입력을 받으면 1단계 끝 => 콘솔출력 입력하신 이름은 'xx' 입니다
+            */
+        }
+        
+        // step1-1
+        console.log( "게이머의 이름을 입력하세요. 단 28자이내" )
+    </script>    
+</body>
+</html>

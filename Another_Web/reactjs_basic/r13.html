@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>컴포넌트(MyTimeBar) 구조로 시:분:초를 구현하시오 </title>
+    <!-- html위에서 react를 학습할때 포함해야할 external js 3개 -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+  </head>
+  <body> 
+    <div id='root'></div>
+    <script type='text/babel'>
+        class MyTimeBar extends React.Component
+        {
+          constructor ( props ) {
+            super( props )
+            // 상태변수가 시간값을 가지고 있는다 
+            // -> 1초가 지나면 시간이 변경된다 (상태변수값이 변경되었다)
+            // -> render() 호출 -> 화면갱신 -> 시:분:초
+            this.state = {
+              time:new Date()
+            }
+            // 1초마다 콜백함수 호출
+            setInterval(() => {                            
+              this.setState( { time:new Date() } )
+            }, 1000*1);
+          }
+          render () {
+            // 객체 구조분해를 통해 시간 변수를 time으로 받아 내었다
+            let {time} = this.state
+            let time_str = `${time.getHours()}:${time.getMinutes()}:${time.getSeconds()}`                        
+            return (<div>                
+                <h3>{ time_str }</h3>             
+              </div>)
+          }
+        }
+        var html = <div>
+          <MyTimeBar/>
+        </div>
+        ReactDOM.render( html, document.querySelector('#root'))
+    </script>
+  </body>
+</html>

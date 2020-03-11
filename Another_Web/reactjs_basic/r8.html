@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>React 컴포넌트 만들기</title>
+    <!-- html위에서 react를 학습할때 포함해야할 external js 3개 -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+  </head>
+  <body> 
+    <div id='root'></div>
+    <script type='text/babel'>
+        // 컴포넌트 => 한번도 본적이 없는 태그 => Custom Tag
+        // 컴포넌트의 형태 => 함수 스타일, 클레스 스타일
+        var jsx_html = <div>
+          <Good msg='ABCD' time='가나다라'/>
+        </div>
+
+        //  함수 형태 컴포넌트
+        // 컴포넌트의 핵심 구성요소:[props,state,이벤트],생성자..
+        // props는 컴포너트 외부에서 컴포넌트 내부로 데이터를 전달할때
+        // 사용되는 변수이다. 사용법, 속성명을 통해서 데이터가 전달
+        function Good( props ) {
+          // 반드시 return JSX
+          return (<h2>{props.msg}/{props.time}</h2>)
+        }
+
+        ReactDOM.render( jsx_html, document.querySelector('#root'))
+    </script>
+  </body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>JSX에 css 적용하기</title>
+    <!-- html위에서 react를 학습할때 포함해야할 external js 3개 -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+  </head>
+  <body> 
+    <div id='root'></div>
+    <script type='text/babel'>
+        function makeJSXByCSS()
+        {
+          // css 사용시 속성의 이름에는 A-b 하이픈을 사용하면 않된다
+          const css1 = {
+            'color':'blue',
+            'backgroundColor':'pink',
+            'fontSize':'3em'
+          }
+          // css 적용
+          return (<div>
+            <p style={css1}>스타일 1</p>
+            <p style={{'color':'red'}}>스타일 2</p>
+            <p>스타일 3</p>
+          </div>)
+        }
+        ReactDOM.render( makeJSXByCSS(), document.querySelector('#root'))
+    </script>
+  </body>
+</html>

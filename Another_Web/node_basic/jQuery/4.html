@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+<div>    
+    <input type="text" name='uid'/>
+    <input type="password" name='upw'/>    
+</div>
+<script>
+    // start tag는 속성(attribute)를 가질수 있다
+    // 8. 속성 셀렉터 => input에서 주로 사용
+    // [속성명=속성값]
+    $('[name=uid]').css('color','red')
+    $('input[name=upw]').css('background','pink')
+    // 9. 의사결정 셀렉터 => 반복적으로 등장하는 요소 : li, tr, td
+    // tr:first, tr:last, tr:eq(인덱스), tr:lt(인덱스), tr:gt(인덱스)
+    // tr:even(짝수번째), tr:odd(홀수번째) ..tr:nth-child(인덱스)
+    // => index.ejs에서 처리
+</script>
+</body>
+</html>

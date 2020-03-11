@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+<div>
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>
+            3
+            <ol>
+                <li>a</li>
+                <li>b</li>
+                <li>c</li>
+            </ol>
+        </li>
+    </ul>
+</div>
+<script>
+    // 7. 부모와 자식, 후손
+    // 1~6번으로 특정할수 없으면, 관계, 구조를 파고 들어서 특정해야한다
+    // 현재 문서상에 존재하는 모든 li를 다 찾아서 css 적용
+    $('li').css('color','red')
+    // ul 밑에 있는 li만 글자색을 블루로 처리하시오
+    // 현재 문서에는 ul이 한개만 존재하므로 문제없다, 만약 다른곳에도 
+    // 있다면 더 위로 가거나, 방식을 고민
+    // 7-1. 직계자식 : 부모특정 > 자식특정
+    $('ul>li').css('color','blue')
+    // 7-2. 후손 : 부모특정 자식특정 => 직계자식도 포함
+    // ul 밑에 있는 모든 li라고 특정
+    $('ul li').css('color','black')
+</script>
+</body>
+</html>

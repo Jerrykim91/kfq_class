@@ -1,0 +1,196 @@
+<!-- CTRL+a => CTRL + k -> f : 코드정렬 -->
+<!DOCTYPE html>
+<html>
+
+<head></head>
+
+<body>
+    <div>
+        <!-- 게이머 이름 입력 구간 -->
+        <fieldset>
+            <h2>Step1 게이머의 이름 입력</h2>
+            <input type='text' id='yourInput' placeholder="게이머 이름" />
+            <button onclick="onSend();">입력</button>
+            <p id='gName'></p>
+        </fieldset>
+    </div>
+    <br>
+    <div>
+        <!-- 실제 게임 진행 구간 (숫자 입력) -->
+        <fieldset>
+            <h2>Step2 게임 진행 - 숫자 맞추기(1~99)</h2>
+            <input type='number' id='myValue' placeholder="AI의 값은?" />
+            <button id='shotBtn'>Shot</button>
+        </fieldset>
+    </div>
+    <br>
+    <div>
+        <fieldset>
+            <h2>Game Log</h2>
+            <div id='log'></div>
+        </fieldset>
+    </div>
+    <script>
+        // 절차적->함수지향적을 섞어서 진행
+        // 전역변수 위치 ------------------------------------------
+        let gamerName = ''
+        let aiValue   = 0 // 0 이라면 세팅된적이 없다
+        let myValue   = 0 // 0 이라면 입력한 적이 없다(게이머가)
+        let tryCnt    = 0 // 숫자를 맞추는 시도 횟수. 0은 시행한적이 없다
+        // -------------------------------------------------------
+
+    
+        // step1-1
+        console.log("게이머의 이름을 입력하세요. 단 28자이내")
+        // step1-2
+        function onSend() {
+            // document.querySelector('css selector') => 문서내에 
+            // 특정 요소 찾기 
+            // 웹상으로 주고 받는 데이터는 무조건 문자열이다
+            let tmp = document.querySelector('#yourInput')
+            let yourInput = tmp.value
+            // 입력값의 정체는 무엇인가? (타입이 무엇인가?)
+            // 무조건 문자열이고, 절대 null없다
+            console.log(typeof yourInput)
+            // 조건 1 : 입력을 않하고 엔터를 치면  or            
+            if (yourInput.length == 0) {
+                alert('정확하게 입력하세요')
+            }
+            // 조건 2 : 28자이상 (28<) 입력하면
+            else if (yourInput.length > 28) {
+                alert('게이머의 이름은 28자 이내입니다.')
+                // 초기화 해주면 좋겟다
+                tmp.value = ''
+            }
+            // 정상
+            else {
+                // yourInput: 로컬변수(함수내에서만 의미를 가짐)
+                // 다른 함수에서도 사용해야한다 => 전역변수가 필요하다\
+                // js에서 전역변수 위치는 함수 바깥
+                gamerName = yourInput
+                console.log(`입력하신 이름은 ${yourInput} 입니다`)
+                // 화면에 이름 표기
+                // 아이디가 gName인 요소를 찾아서(특정한다, css selecor, 찾아라)
+                // 값으로 이름을 넣는다
+                // 화면조작 -> DOM(Document Object Model) 조작
+                document.querySelector('#gName').innerHTML = `이름:${gamerName}`
+                // 입력창 초기화
+                tmp.value = ''
+                // 게임 2단계 진입
+                gameStep2()
+            }
+        }
+
+        // step2
+        function gameStep2() {
+            // 출력 화면에 인트로문구(문자열)를 생성(게이머이름이들어가야함)
+            // 형태가 무너진다(줄을 맞췃더니 -> 차후 처리)
+            let introStr = `======================================
+                    숫자 맞추기 게임(1~99)
+                    v 1.0.0
+                    ${gamerName}
+                    ======================================`
+            // 해서 콘솔에 출력
+            console.log(introStr)
+        }
+
+        // step3
+        // AI는 1~99 사이의 랜덤으로 난수를 발생시켜야 한다
+        // Math.random()
+        function gameAI () {
+            return parseInt( Math.random() * 99 ) + 1
+        }
+        // 사용자는 1~99사이의 값을 넣어야 한다
+        // 만약, ~0, 100~ 값읋 넣거나, 정수가 될수 없는 값을 넣거나 ~ 에러
+        // 이벤트를 동적으로 붙인다 => xxx.on('이벤트명',()=>{}):jqeury에서
+        // 요소.on('이벤트명',콜백함수)
+        // 이벤트가 발생하면 잠시후에 콜백함수가 호출된다
+        document.querySelector('#shotBtn').addEventListener('click', ()=>{
+            console.log('숫자 입력')
+            onShot()
+        })
+        
+        function onShot(){
+            // 3-1. AI의 값은 1회만 세팅되야 한다
+            // 이 안에서 aiValue값을 1회만 세팅하시오
+            if( aiValue == 0 ){ // 초기화 한적이 없다
+                aiValue = gameAI() // 1~99 변경ㅌ
+                console.log( aiValue )
+            }
+            // 3-2. 내가 입력한 값 획득
+            // 나중에 입력창을 초기화할것이다 =>2군데 이상 사용 => 변수로받는다
+            let tmp = document.querySelector('#myValue')
+            // 입력값은 문자열이다 => 워하는 타입은 정수다 => 비교를 하기위해
+            // 사용자가 수치를 잘 넣는다는 가정!! -> 완성후 체크 하겟다
+            myValue = parseInt(tmp.value)
+            console.log( typeof myValue )
+
+            // 3-3. 1~99사이값을 넣으면(잘넣는다고 치고) => 판정
+            tryCnt++
+            if ( myValue > aiValue ) { 
+                // 크다
+                // 크다 => 메시지롤 화면상에 로그로 출력하고
+                // 로그창을 찾아서, 메시지를 동적으로 추가한다
+                // 반복 코드이므로 함수로 빼는게 적절하다
+                document.querySelector('#log').innerHTML 
+                = document.querySelector('#log').innerHTML + `[${myValue}]입력값이 큽니다<br>`
+                // 다시 입력을 받을수 있게 대기
+                tmp.value = ''
+            }else if ( myValue < aiValue ) {
+                // 작다
+                // 작다 => 메시지롤 화면상에 로그로 출력하고
+                document.querySelector('#log').innerHTML 
+                = document.querySelector('#log').innerHTML + `[${myValue}]입력값이 작습니다<br>`
+                // 다시 입력을 받을수 있게 대기
+                tmp.value = ''
+            }else{ 
+                // 정답
+                // 정답입니다 일때, 100-(시도횟수*10)을 점수로 부여하고,
+                let myScore = 100 - (tryCnt*10) 
+                // 이름옆에 표시, 저장(않배운 부분) 한다
+                document.querySelector('#gName').innerHTML 
+                = `이름:${gamerName}, 점수:${myScore}`
+                
+                
+                // 화면 갱신 연출때문에 팝업을 띠우는 부분을 타이머를 써서 
+                // 별도로 1초후에 구동되게 구성
+                // 1초후에 팝업을 띠우겟다 -> 단발성 타이머
+                setTimeout( ()=>{
+                    // 정답이면 => 정답입니다, 다시 하시겠습니까?  예, 아니오 (confirm)
+                    if( confirm('정답입니다, 다시 하시겠습니까?') ){
+                        // 다시 한다 => 전역 변수 초기화(게임초기화)
+                        gameInit()
+                    }else{
+                        // 그만 할래
+                        alert('bye ~ bye')
+                        // 아니오, bye ~ bye 종료(self.close())
+                        self.close()
+                    }
+                }, 1000*1 )
+                
+                
+
+                
+
+                
+            }            
+            // 작다, 크다, 정답입니다. 결과를 보여주면된다
+        }
+        
+        // 게임 초기화
+        function gameInit() {            
+            aiValue   = 0 // 0 이라면 세팅된적이 없다
+            myValue   = 0 // 0 이라면 입력한 적이 없다(게이머가)
+            tryCnt    = 0 // 숫자를 맞추는 시도 횟수. 0은 시행한적이 없다
+            // 입력창 초기화 : value 속성값을 초기화
+            document.querySelector('#myValue').value = ''
+            // 로그창 초기화 : 내부값초기화=>자식들을 모두제거
+            document.querySelector('#log').innerHTML = ''
+            //$('#log').empty() : 차추 미리보기
+        }
+        
+
+    </script>
+</body>
+
+</html>

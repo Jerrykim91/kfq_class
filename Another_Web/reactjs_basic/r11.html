@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>컴포넌트 구성, state</title>
+    <!-- html위에서 react를 학습할때 포함해야할 external js 3개 -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+  </head>
+  <body> 
+    <div id='root'></div>
+    <script type='text/babel'>
+        // state : 상태값, 3가지 상태 변환
+        // 1. 상태값 초기화   : 주로 생성자에서 진행, 필요하면 원하는곳에서 가능
+        //                     => state 밑으로 키가 생성된다
+        // 2. 상태값 사용    : 사용하고 싶은곳에서 사용. this.state.xx
+        // 3. 상태값 업데이트 : render() 자동 호출 => 화면 갱신
+        class MyList extends React.Component
+        {
+          render () {
+            // 작업공간
+            // 전달된 데이터를 ,기준으로 분해해서 배열로 리턴
+            const items = this.props.items.split(',')
+            // js상에서 배열데이터를 하나씩꺼내서 처리/조작 map()
+            // 리액트는 리스트 표현시 반드시 속성으로  key값 부여한다
+            // key은 가급적 고유해야한다
+            const list  = items.map( (item)=>{
+                return <li key={item}>{item}</li>
+            } )
+            // list => <li>대통령</li><li>국무총리</li>...
+            return (<div>
+                <h2>{ this.props.title }</h2>
+                <ul>
+                  {list}                 
+                </ul>
+              </div>)
+          }
+        }
+
+        var html = <div>
+          <MyList title='국가요직:행정부' items='대통령,국무총리,부총리,기재부장관'/>
+        </div>
+        ReactDOM.render( html, document.querySelector('#root'))
+    </script>
+  </body>
+</html>

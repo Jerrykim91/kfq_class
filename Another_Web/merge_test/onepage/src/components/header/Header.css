@@ -1,0 +1,10 @@
+/* 헤더 부분의 스타일을 클레스 정의 */
+.Header {
+    background: #A566FF;
+    color:white;
+    font-size: 2rem;
+    padding: 1.3rem;
+    text-align: center;
+    font-weight: 600;
+    margin-bottom: 1.8rem
+}

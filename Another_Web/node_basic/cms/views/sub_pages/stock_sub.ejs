@@ -1,0 +1,94 @@
+<div class="content-wrapper">
+    <!-- 해당 페이지 헤더 정보 (필수포함) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark"><%=title %></h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <!-- 페이지 뎁스 설명 -->
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active"><%=menu %></li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+
+    <!-- 실제 내용 -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <section class="col-lg-12 connectedSortable">
+                    <div class="card">
+                        <h4>주식 검색(AJAX + jquery 사용 + json)</h3>
+                        <p>
+                            <% /*
+                                  AJAX:js기반으로 백그라운드에서 비동기 통신을 담당<br>
+                                  - 특징:화면이껌벅임없음,동일 도메인에서만 사용가능(동일사이트에서만가능)<br>
+                                  - 다루는데이터는:html,xml(1999),text,json(2007~9년대후반) 등 텍스트포멧 가능<br>
+                                  xml:플랫폼과언어에 독립적인 데이터포멧으로 최초로 등장한 형식<br>
+                                  - json등장으로 주류에서 밀려났고, 여행사,항공사,숙박 이쪽계열 아직사용<br>
+                                  - 환경구성등 포멧으로 사용<br>
+                                  - html의 엄격한 규격의 영향을 지속적으로 미치고 있다<br>
+                                  json:전자정부프레임웍(spring 주력)에서 주된 데이터 포멧으로 사용
+                                  - JavaScript Object Notation<br>
+                                  - xml은 데이터를 표현하는데  &lt;name&gt;품질&lt;/name&gt; <br>
+                                  - json은 데이터를 표현하는데 name:품질 => 데이터를 줄있수 있다<br>
+                                  - xml 대비 저 용량을 같은 정보를 표현하게 되어서 각광<br>
+                                  - 2010년 이후로는 대부분의 http기반 통신 base의 데이터 형식을
+                                    주로 사용<br>
+                                  jQuery:자바스크립트 프레임웍, js를 보다 손쉽게 개발하기위해사용<br>
+                                  - css selector, 이벤트 처리, 통신(ajax), DOM 조작(화면조작)
+                                  */ %>
+                        </p>
+                        <fieldset>
+                            <form>
+                                <input type="text" name='keyword' placeholder="주식명" />
+                                <input type='submit' value="검색" />
+                            </form>
+                            <div id='results' style='margin-top: 1em;'>
+                            </div>
+                        </fieldset>
+                        
+                    </div>
+                </section>
+            </div>
+            <div class="row">
+                <section class="col-lg-12 connectedSortable">
+                    <div class="card">
+                        <% /* table에 대한 디자인적인 정리는 템플릿 샘플을 통해 적용 */  %>
+                        <table border='1' cellspacing='0' width='100%'>
+                            <thead>
+                                <!-- 컬럼 -->
+                                <tr>
+                                    <!-- 한줄 -->
+                                    <th>code</th>
+                                    <th>name</th>
+                                    <th>cur</th>
+                                    <th>rate</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- 데이터 -->
+                                <% for( row of rows ){ %>
+                                <tr>
+                                    <!-- 한줄 -->
+                                    <td><%= row.code %></td>
+                                    <td><%= row.name %></td>
+                                    <td><%= row.cur %></td>
+                                    <td><%= row.rate %></td>
+                                </tr>
+                                <% } %>
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </section>
+</div>

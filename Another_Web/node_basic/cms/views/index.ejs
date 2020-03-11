@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <%- include my_mod/head.ejs %>
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+  <div class="wrapper">
+    <!-- Navbar : 페이지 상부 : 로그아웃,회원정보등등 -->
+    <%- include my_mod/navbar.ejs %>    
+    <!-- Main Sidebar Container : 사이드뷰 -->
+    <%- include my_mod/aside.ejs %>
+    <!-- Content Wrapper. Contains page content : 실제콘텐츠 -->
+    <%- include sub_pages/index_sub.ejs %>
+    <!-- 카피라이트, 회사 정보 -->
+    <%- include my_mod/footer.ejs %>
+  </div>  
+  <%- include my_mod/foot.ejs %>
+</body>
+</html>

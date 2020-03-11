@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <%- include my_mod/head.ejs %>
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+  <div class="wrapper">
+    <!-- Navbar : 페이지 상부 : 로그아웃,회원정보등등 -->
+    <%- include my_mod/navbar.ejs %>    
+    <!-- Main Sidebar Container : 사이드뷰 -->
+    <%- include my_mod/aside.ejs %>
+    <!-- Content Wrapper. Contains page content : 실제콘텐츠 -->
+    <%- include sub_pages/stock_sub.ejs %>
+    <!-- 카피라이트, 회사 정보 -->
+    <%- include my_mod/footer.ejs %>
+  </div>  
+  <%- include my_mod/foot.ejs %>
+  <script>
+      // 여기에 존재하는 이유는
+      // 바로 위에 있는 html 요소를 엑세스하겠다 의미
+      // 1. form 특정해서, 전송 이벤트를 인터셉트 해야한다 (event:submit)
+      $('form').on('submit', (evt) => {
+          // 2. 이벤트 무효화          
+          evt.preventDefault()
+          // 3. ajax 통신
+          // https://api.jquery.com/jQuery.ajax/
+          $.ajax({
+              url: '/stock/search',              // 통신할 주소(동일 도메인)
+              data: $('form').serialize(), // 전송할 데이터, 자동구성해줌
+              type: 'get',                 // 전송 방식:메소드
+              dataType: 'json',            // 응답 데이터 포멧
+              success: (data) => {           // 성공
+                  console.log('성공', typeof data)
+                  // 화면 처리 => DOM 조작
+                  // 결과창을 특정해서, 응답데이터중 name 컬럼을 뽑아서
+                  // <div>이름</div>로 생성하여 자식으로 추가한다
+                  // 배열 => 지정된 횟수를 반복 => for
+                  // 기본 결과를 삭제=> 비운다
+                  $('#results').empty()
+                  $.each(data, (index, item) => {
+                      // 주식명 : 삼성전자
+                      let html = item.name
+                      // 검색어를 좀 찐하게 <b> 처리
+                      // 검색어 획득 : 삼성
+                      let word = $('[name=keyword]').val()
+                      // <b>삼성</b>전자
+                      html = html.replace(word, `<b>${word}</b>`)
+                      //$('#results').append( `<div>${html}</div>` )
+                      $('#results').append(`<div id="stock${index}">${html}</div>`)
+                      //console.log(  )
+                      // 실습 : 20분
+                      // 해당 주식이름을 클릭하면 alert('주식명') 호출
+                      // 구현하시오
+                      // 반복하면서 div가 추가되면 그 요소는 last로 
+                      // 특정할수 있다 => 바로 이벤트 적용
+                      //$('#results>div:last').on('click',()=>{
+                      $(`#stock${index}`).on('click', () => {
+                          //alert(item.name)
+                          // ~/info/종목코드
+                          // update가 1이면 수정하기화면 아니면 미리보기
+                          location.href = `/info/${item.code}?update=0`
+                      })
+                  })
+
+              },
+              error: (err) => {              // 실패
+                  console.log('실패', err)
+              }
+          });
+          return false
+      })
+  </script>
+  <script>
+    // HTML을 인터프린터(랜더링)하면 브라우저가 한줄한줄 읽어서
+    // 해석->화면처리:메모리에 html 문서가 적제된다:dom구성된다
+    // BODY 태그를 다는 지점 직전에 스크립트를 열면 이미 
+    // 메모리에 다 로드되어 있으니까 html 조작이 가능
+    $('tbody>tr:even').css('background','lightgreen')      
+  </script>   
+</body>
+</html>

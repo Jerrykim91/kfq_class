@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>화면 갱신</title>
+    <!-- html위에서 react를 학습할때 포함해야할 external js 3개 -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <script>
+      // setInterval( ()=>{
+      //   const d = new Date()        
+      //   // 시:분:초 를 추출 
+      //   console.log( `${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}` )        
+      // }, 1000*1 )      
+    </script>
+  </head>
+  <body> 
+    <div id='root'></div>
+    <script type='text/babel'>
+        /*
+        - 가상DOM :리액트를 사용하는 큰 이유 -> 고성능, 빠른 화면처리
+        - 원리 : DOM을 메모리에 올리고, 변경 이슈가 발생하면, 
+                 비교를 수행 -=> 변경이 된 최소 부분만 찾아서 갱신
+                 -> 성능의 극대화 추구
+        - 단점 : 최초에 DOM을 올려야 하므로, 이때 최초의 약간의 딜레이 존재한다
+        - 화면에 시계 표시 => 시:분:초를 랜더링
+        */
+        setInterval( ()=>{
+          const d = new Date()        
+          // 시:분:초 를 추출 
+          let time_str = `${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`
+          ReactDOM.render( <p>{time_str}</p>, document.querySelector('#root'))
+        }, 1000*1 )
+        
+    </script>
+  </body>
+</html>

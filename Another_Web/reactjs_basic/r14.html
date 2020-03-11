@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>컴포넌트 구성요소중:이벤트 처리</title>
+    <!-- html위에서 react를 학습할때 포함해야할 external js 3개 -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+  </head>
+  <body> 
+    <div id='root'></div>
+    <script type='text/babel'>
+        // MyEvent 컴포넌트 class 형으로 구성하시오
+        class MyEvent extends React.Component
+        {
+          constructor ( props ) {
+            super(props)
+            // 1-2. this에 대한 보완작업
+            this.alertHandler2 = this.alertHandler2.bind(this)
+          }
+          // 맴버 변수가 이벤트 핸들러 함수로 사용이 되면 
+          // this 바인딩을 새로 설정해주야 한다(생성자에서)
+          alertHandler2 () {            
+            alert('클릭3' + this.props.name)
+          }
+          alertHandler3 () {            
+            alert('클릭4' + this.props.name)
+          }
+          render () {
+            // 지역변수 
+            const alertHandler = (e)=>{
+              alert('클릭1' + this.props.name)
+            }
+            // 맴버 함수를 클로저(함수안에 함수에다 wrapping 하면)
+            // this 바인딩 없이 바로 사용 가능
+            const alertHandler3 = (e)=>{
+              this.alertHandler3(e)
+            }
+            // 1-1. JSX에서 맴버함수가 이벤트로 등록되는 this가 문제됨
+            return (<div>
+                <div onClick={ alertHandler }>클릭 팝업1</div>
+                <div onClick={ (e)=>{alert('클릭2')} }>클릭 팝업2</div>
+                <div onClick={ this.alertHandler2 }>클릭 팝업3</div>
+                <div onClick={ alertHandler3 }>클릭 팝업4</div>
+                </div>)
+          }
+        }
+        var html = <div>
+          <MyEvent name='류'/>
+        </div>
+        ReactDOM.render( html, document.querySelector('#root'))
+    </script>
+  </body>
+</html>

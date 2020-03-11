@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>    
+  <title>로그인</title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+<body>
+  <h2>로그인</h2>
+  <fieldset>
+    <!-- form 전송(post 방식으로)을 통해서 데이터(아이디/비번)를 보내겟다(C->S) -->
+    <!-- http://localhost:3000/users/login?uid=SDFGDS&upw=FGHFH -->
+    <!-- 데이터를 보낼 주소를 쓰지 않으면 현재 페이지로 전송 -->
+    <!-- 메소드를 지정하지 않으면 GET 방식으로 데이터가 전송 -->
+    <!-- 데이터를 받을 주소는 action="/users/loginProc" 이렇게 지정할수 있다 -->
+    <!-- 같은 주소를  method 기준으로 업무를 나눠서 처리하는 방식:restful -->
+    <form method="POST" >      
+      <input type="text" name='uid' placeholder="아이디" required autofocus/>
+      <input type="password" name='upw' placeholder="비밀번호" required/>
+      <input type="submit" value="로그인"/>
+    </form>
+  </fieldset>
+</body>
+</html>

@@ -1,0 +1,9 @@
+<script>
+    alert('<%= msg %>');
+    if( '<%= url %>' === '-1' ){
+        history.back(); // 이전 페이지로 되돌아간다
+    }else{
+        // 특정페이지로 이동한다
+        location.href = '<%= url %>'
+    }
+</script>

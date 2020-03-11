@@ -1,0 +1,1 @@
+http://api.manana.kr/exchange/rate/KRW/JPY,USD,EUR.json
