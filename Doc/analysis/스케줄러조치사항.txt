@@ -1,0 +1,18 @@
+[[ 스케줄러 해결 방안 ]]
+1. path를 먼저 잡아준다
+ - 내 PC > 속성 > 고급시스템 설정 > 환경변수 > User에 대한 사용자 변수 > Path 더블클릭 
+ - 아래 내용 추가 (단, 설치위치가 다르면 맞춰서)
+   C:\Users\User\Anaconda3
+   C:\Users\User\Anaconda3\Scripts
+   C:\Users\User\Anaconda3\Library\bin
+ - 확인 > 확인 > 확인
+2. 파워셀 or 커맨드 오픈
+ - $ activate DataCrawling 실행
+ - 이상없으면 정상적으로 path가 잡힌것이고 스케줄러가 수집을 잘하는디 디비 체크함
+
+3. 만약 위에처럼 해도 않되면 
+ - conda navigator > environments > DataCrawling > 삼각형 아이콘 왼쪽클릭 > open terminal
+ $ conda remove pandas
+ $ conda remove numpy
+ $ conda install numpy
+ $ conda install pandas
